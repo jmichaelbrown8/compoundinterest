@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Compound Interest Calculator</title>
+<link href="portfolio.css" type="text/css" rel="stylesheet" />
+
+<script language="JavaScript">
+
+function compoundInterest(i)
+{
+ var init = parseFloat(window.document.calculator.init.value);
+ var rate = parseFloat(window.document.calculator.rate.value);
+ var addi = parseFloat(window.document.calculator.addi.value);
+
+ if (i==undefined)
+ {
+   return "900000";
+ }
+
+ if (i == 0) {return init;}
+ else {return compoundInterest(i-1)*(1+rate/100)+addi;}
+}
+
+
+function numberFormat(val)
+{
+val = val.replace('$','');
+val = val.replace(',','');
+val = val.replace('%', '');
+val = parseFloat(val);
+
+return val;
+
+}
+
+function clearAll()
+{
+ window.document.calculator.init.value="";
+ window.document.calculator.rate.value="";
+ window.document.calculator.addi.value="";
+ window.document.calculator.year.value="";
+ window.document.calculator.total.value="";
+
+}
+
+function yearValue(i)
+{
+    if (i=="") {
+   return "";
+ }
+ else {
+  var number = numberFormat(1);
+  number = parseFloat(number);
+  number = Math.round(number);
+  return number;
+
+ }
+
+}
+
+</script>
+
+</head>
+<body>
+<style type="text/css">
+
+#main-content {
+  position: relative;
+  box-shadow: .8em .5em .2em 0em #CCCCCC;
+  border-radius: 1em;
+  top: 20px;
+  width: 300px;
+  margin: auto;
+  border: gray .2em solid;
+  padding: 1em;
+}
+
+h3 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+label {
+  width: 9em;
+  float: left;
+  text-align: right;
+  margin-right: .5em;
+}
+
+input[type="text"]{
+  width: 8em;
+  text-align: right;
+  border: solid black .1em;
+  background: none;
+  box-shadow: .2em .2em .1em 0em #CCCCCC;
+}
+
+input[type="submit"]{
+  width: 8.2em;
+  padding: .2em;
+  margin-left: 11.3em;
+  border: solid black .1em;
+  border-radius: .5em;
+  -moz-border-radius: .5em;
+  -webkit-border-radius: .5em;
+  background: #CCCCCC;
+  box-shadow: .2em .2em .1em 0em #CCCCCC;
+}
+
+</style>
+<div id="main-content">
+<form name="calculator" onSubmit="return false;">
+
+<h3>Compound Interest Calculator</h3>
+
+<p><label name="init">Initial amount</label><input type="text"
+name="init" value=500
+onChange="window.document.calculator.init.value=numberFormat(window.document.calculator.init.value);"
+/></p>
+
+<p><label name="rate">Rate</label><input type="text" name="rate"
+value=7.5 onChange="window.document.calculator.rate.value=numberFormat(window.document.calculator.rate.value);"
+/></p>
+
+<p><label name="addi">Yearly contribution</label><input type="text"
+name="addi" value=200
+onChange="window.document.calculator.addi.value=numberFormat(window.document.calculator.addi.value);"
+/></p>
+
+<p><label name="year">Years to compound</label><input type="text"
+name="year" value=10
+onChange="window.document.calculator.year.value=yearValue(window.document.calculator.year.value);"
+/></p>
+
+<p><input name="calc" type="submit" value="Calculate Total"
+onClick="window.document.calculator.total.value='$'+compoundInterest(window.document.calculator.year.value).toFixed(2);"
+/></p>
+
+<p><label name="total">Total</label><input type="text" name="total" /></p>
+
+<p><input name="clear" type="submit" value="Reset" onClick="clearAll();" /></p>
+
+</form>
+</div>
+
+
+</body>
+</html>
